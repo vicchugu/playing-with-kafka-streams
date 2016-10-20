@@ -3,6 +3,7 @@
   "name": "user",
   "fields":[
     {"name": "sum", "type": "int"},
-    {"name": "name",  "type": "string"}
+    {"name": "name",  "type": "string"},
+    {"name": "ts", "type": "long"}
   ]
 }
