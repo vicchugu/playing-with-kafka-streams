@@ -9,7 +9,6 @@ import org.apache.avro.generic.{GenericData, GenericRecord}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
 import scala.io.Source
-import scala.util.Random
 
 object AvroProducer {
   def main(args: Array[String]): Unit = {
@@ -17,18 +16,13 @@ object AvroProducer {
     val producer = new KafkaProducer[String, GenericRecord](CommonProperties())
 
     while (true) {
-      val sum = Random.nextInt(2)
+      //        Change value here when you test it.
+      val dt1 = LocalDateTime.of(date, LocalTime.of(8, 36))
+      producer.send(Record.create(User(1, "Odersky", dt1)))
+      Thread.sleep(1000L)
 
-      val time = if (sum == 0) {
-//        Change value here when you test it.
-        LocalTime.of(16, 20)
-      } else {
-        LocalTime.now()
-      }
-      val dt = LocalDateTime.of(date, time)
-      val user = User(sum, "Odersky", dt)
-      producer.send(Record.create(user))
-
+      val dt2 = LocalDateTime.of(date, LocalTime.now())
+      producer.send(Record.create(User(2, "Odersky", dt2)))
       Thread.sleep(1000L)
     }
   }
